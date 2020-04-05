@@ -1,0 +1,83 @@
+main{
+  margin: auto;
+  width: 1030px;
+  margin-top: 100px;
+}
+
+
+
+#game-container {
+  background: rgb(61, 61, 61);
+  border-radius: 50px;
+  width: 1000px;
+  height: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  left: 15px;
+  z-index:1;
+}
+
+/* around game container for border flash effect */
+#border-sides{
+  position: relative;
+  bottom: 115px;
+  border-radius: 50px;
+  width: 1030px;
+  height: 130px;
+  background: radial-gradient(circle at 50px 50px, rgb(0, 255, 0) 35px, rgba(0,0,0,0) 55px),
+              radial-gradient(circle at 50px 80px, rgb(0, 255, 0) 35px, rgba(0,0,0,0) 55px),
+              radial-gradient(circle at 980px 50px, rgb(0, 255, 0) 35px, rgba(0,0,0,0) 55px),
+              radial-gradient(circle at 980px 80px, rgb(0, 255, 0) 35px, rgba(0,0,0,0) 55px);
+}
+
+.successFlash {
+  opacity: 0;
+}
+
+#border-top-bottom {
+  position: relative;
+  left: 47.5px;
+  height: 100%;
+  width: 935px;
+  background: linear-gradient(white -5px, rgb(0, 255, 0) 15px, rgb(0, 255, 0) 115px, white 135px);
+}
+
+#game-text{
+  position: relative;
+  right: 0;
+  font-family: monospace;
+  font-size: 20px;
+  white-space: nowrap;
+  color: rgb(255, 123, 71);
+}
+
+#game-stats {
+  list-style: none;
+  text-transform: uppercase;
+  font-family: arial;
+}
+
+#game-stats li {
+  font-size: 1.2em;
+}
+
+#score-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+@keyframes successFlash {
+  0% {
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

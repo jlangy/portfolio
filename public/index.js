@@ -1,24 +1,8 @@
-import React, {useEffect} from 'react';
-import './App.css';
-import Introduction from './components/Introduction'
-import TypeGame from './components/TypeGame'
-const FONT_WIDTH = 12.2;
-const BASE_SPEED = .15;
+const FONT_WIDTH = 12.0333;
+const BASE_SPEED = .1;
 const CONTAINER_WIDTH = 1000;
 
-const wordsArray = text => text.split(' ').map(word => word.split(''));
 
-const speedMutliplier = textPosition => {
-  if(textPosition < CONTAINER_WIDTH / 4){
-    return 8
-  }
-  if(textPosition < CONTAINER_WIDTH / 1.33){
-    return 4
-  }
-  else{
-    return 2
-  }
-}
 const setState = () => {
   return {
     wordsArray: [],
@@ -49,7 +33,7 @@ const resetDom = () => {
 let state = {};
 
 const generateGameLetters = () => {
-  for(const letter of state.gameText.split('')){
+  for(letter of state.gameText.split('')){
     const letterContainer = document.createElement("span");
     letterContainer.innerHTML = letter;
     state.gameTextContainer.appendChild(letterContainer);
@@ -148,30 +132,10 @@ const printGameStats = () => {
   const stats = Object.entries(state.mistakesMap).sort((a,b) => {
     return b[1] - a[1];
   })
-  for (const stat of stats){
+  for (stat of stats){
     const letterStatEl = document.createElement('li')
     letterStatEl.classList += 'game-stat'
     letterStatEl.innerHTML = `${stat[0]} : ${stat[1]}`
     container.append(letterStatEl)
   }
 }
-
-function App() {
-
-  useEffect(() => {
-    console.log('hi')
-    document.getElementById('start').addEventListener('click', () => {
-      startGame();
-      document.getElementById('start').blur();
-    });
-  }, [])
-
-  return (
-    <div className="App">
-      <Introduction />
-      <TypeGame />
-    </div>
-  );
-}
-
-export default App;
