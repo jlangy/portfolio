@@ -1,9 +1,36 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ScoreContainer from './ScoreContainer';
-import Word from './Word';
+import Letter from './Letter'
+import { makeStyles } from '@material-ui/core/styles';
+
 const FONT_WIDTH = 12.2;
 const BASE_SPEED = .15;
 const CONTAINER_WIDTH = 1000;
+
+const useStyles = makeStyles({
+  gameText: {
+    position: 'relative',
+    right: 0,
+    fontFamily: 'monospace',
+    fontSize: '20px',
+    whiteSpace: 'nowrap',
+    color: 'rgb(255, 123, 71)',
+    display: 'flex',
+
+  }
+});
+
+const successFlash = () => {
+  const borderArray = Array.from(document.getElementsByClassName('successFlash'));
+  borderArray.forEach((el) => {
+    el.style.animation = 'successFlash .3s'
+  });
+  setTimeout(() => {
+    borderArray.forEach(el => {
+      el.style.animation = ''
+    })
+  }, 300);
+}
 
 const speedMutliplier = textPosition => {
   if(textPosition < CONTAINER_WIDTH / 4){
@@ -23,23 +50,34 @@ function TypeGame(props) {
 
   const [state, setState] = useState({
     gameTextContainer: document.getElementById('game-text'),
-    wordsArray: props.text.split(' '),
+    lettersArray: props.text.split(''),
     textPosition : 0,
     wordIndex: 0,
     letterIndex: 0,
     successfulWords: 0,
     time: Date.now(),
     mistakes: 0,
-    totalLetters: 0,
     lastWordLetterIndex: 0,
     mistakesMap: {},
     gameOver: false,
   });
 
+  //Updated in event handler, need to use a ref to get current values
+  const letterIndex = useRef(0);
+  const visibleLetterIndex = useRef(0);
+  const successfulWords = useRef(0);
+
+  const classes = useStyles();
+  
   useEffect(() => {
     setState({...state, gameTextContainer:document.getElementById('game-text')})
   }, []);
-  
+
+  const endGame = () => {
+    // printGameStats();
+    state.gameOver = true;
+  }
+
   const moveText = () => {
     if(state.textPosition > CONTAINER_WIDTH){
       state.gameTextContainer.style.color = 'red';
@@ -58,16 +96,27 @@ function TypeGame(props) {
     requestAnimationFrame(moveText)
   }
 
+  const updateWords = () => {
+    //if end of game
+    if(state.lettersArray.length + 1 === letterIndex.current){
+      return endGame();
+    }
+    if(state.lettersArray[letterIndex.current] === " "){
+      successfulWords.current++;
+      visibleLetterIndex.current = letterIndex.current;
+    }
+    letterIndex.current++;
+    successFlash();
+  }
+
+
   const startGame = () => {
     setState({
-      wordsArray: props.text.split(' '),
+      lettersArray: props.text.split(''),
       textPosition : 0,
-      wordIndex: 0,
-      letterIndex: 0,
       successfulWords: 0,
       time: Date.now(),
       mistakes: 0,
-      totalLetters: 0,
       lastWordLetterIndex: 0,
       mistakesMap: {},
       gameOver: false,
@@ -79,10 +128,9 @@ function TypeGame(props) {
   const handleKeyPress = event => {
     //Stopping focus changes on firefox apostrophe click
     event.preventDefault();
-    const currentLetter = state.wordsArray[state.wordIndex][state.letterIndex];
+    const currentLetter = state.lettersArray[letterIndex.current];
     if(event.key === currentLetter.toLowerCase()){
-      state.totalLetters += 1;
-      // updateWords();
+      updateWords();
     }
     else {
       state.mistakes += 1;
@@ -96,7 +144,12 @@ function TypeGame(props) {
     <ScoreContainer errors={state.errors} successfulWords={state.successfulWords}/>
     <div id="game-container">
       <div id="game-text">
-        {state.wordsArray.map((word,i) => <Word word={word.split('')} key={i}/>)}
+        {state.lettersArray.map((letter,i) => <Letter 
+          letter={letter.split('')} 
+          key={i} 
+          index={i} 
+          letterIndex={letterIndex.current} 
+          visibleLetterIndex={visibleLetterIndex.current}/>)}
       </div>
     </div>
     <div id="border-sides" className="successFlash">
@@ -105,7 +158,7 @@ function TypeGame(props) {
     </div>
     <button id="start" onClick={startGame}>Start Game</button>
     <section>
-      <ul id="game-stats">
+      <ul id="game-stats" className={classes.gameText}>
 
       </ul>
     </section>

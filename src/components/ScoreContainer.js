@@ -5,7 +5,7 @@ function ScoreContainer(props) {
     <div id="score-container">
       <div>Successful Words: <span>{props.successfulWords}</span></div>
       {/* <div>WPM: <span>{props.wpm}</span></div> */}
-  <div>Errors: <span>{props.errors}</span></div>
+  <div id='typing-errors'>Errors: <span>{props.errors}</span></div>
   </div>
   )
 }

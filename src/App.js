@@ -45,48 +45,11 @@ const generateGameLetters = () => {
   state.gameTextContainer.style.right = state.gameText.length * FONT_WIDTH + "px";
 }
 
-const updateWords = () => {
-  const currentWord = state.wordsArray[state.wordIndex]
-  if(state.letterIndex < currentWord.length - 1){
-    Array.from(state.gameTextContainer.children)[state.totalLetters - 1].style.color = "rgb(0,255,0)";
-    state.letterIndex++;
-  } else {
-    //Word finished. Need to remove letters, update textposition, update indices, add on a space to type before new word, 
-    //update score stats, and flash green. A lot going on here
-    const lettersToRemove = Array.from(state.gameTextContainer.children).slice(state.lastWordLetterIndex,state.totalLetters);
-    if(state.wordIndex === state.wordsArray.length - 1){
-      endGame();
-    } else {
-    state.lastWordLetterIndex += state.letterIndex;
-    lettersToRemove.forEach(letter => letter.style.visibility = 'hidden')
-    state.textPosition -= FONT_WIDTH * (state.letterIndex + 1);
-    state.wordIndex ++;
-    state.letterIndex = 0;
-    state.wordsArray[state.wordIndex].unshift(' ');
-    state.successfulWords += 1;
-    document.getElementById('successful-words').innerHTML = state.successfulWords;
-    document.getElementById('wpm').innerHTML = Math.round(state.successfulWords / ((Date.now() - state.time) / 60000));
-    successFlash();
-    }
-  }
-}
 
-const endGame = () => {
-  printGameStats();
-  state.gameOver = true;
-}
 
-const successFlash = () => {
-  const borderArray = Array.from(document.getElementsByClassName('successFlash'));
-  borderArray.forEach((el) => {
-    el.style.animation = 'successFlash .3s'
-  });
-  setTimeout(() => {
-    borderArray.forEach(el => {
-      el.style.animation = ''
-    })
-  }, 300);
-}
+
+
+
 
 const printGameStats = () => {
   const container = document.getElementById('game-stats');
