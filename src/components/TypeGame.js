@@ -179,7 +179,7 @@ function TypeGame(props) {
       </div>
     </div>
     <button id="start" onClick={startGame}>Start Game</button>
-    {gameEnd && <GameStats stats={mistakesMap.current} />}
+    {gameEnd && <GameStats stats={mistakesMap.current} restart={startGame} />}
   </main>
   )
 }
