@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ScoreContainer from './ScoreContainer';
-import Letter from './Letter'
+import GameText from './GameText'
+import GameStats from './GameStats'
 import { makeStyles } from '@material-ui/core/styles';
 
+
 const FONT_WIDTH = 12.2;
-const BASE_SPEED = .15;
+const BASE_SPEED = .2;
 const CONTAINER_WIDTH = 1000;
 
 const useStyles = makeStyles({
@@ -16,7 +18,6 @@ const useStyles = makeStyles({
     whiteSpace: 'nowrap',
     color: 'rgb(255, 123, 71)',
     display: 'flex',
-
   }
 });
 
@@ -44,28 +45,27 @@ const speedMutliplier = textPosition => {
   }
 }
 
-
-
 function TypeGame(props) {
 
   const [state, setState] = useState({
     gameTextContainer: document.getElementById('game-text'),
     lettersArray: props.text.split(''),
-    textPosition : 0,
-    wordIndex: 0,
-    letterIndex: 0,
-    successfulWords: 0,
     time: Date.now(),
     mistakes: 0,
     lastWordLetterIndex: 0,
     mistakesMap: {},
     gameOver: false,
+    textPosition: -(FONT_WIDTH * props.text.length)
   });
 
   //Updated in event handler, need to use a ref to get current values
   const letterIndex = useRef(0);
   const visibleLetterIndex = useRef(0);
   const successfulWords = useRef(0);
+  const cursorPosition = useRef(0);
+  const mistakesMap = useRef({});
+  const mistakes = useRef(0);
+  const textPosition = useRef(-(FONT_WIDTH * props.text.length));
 
   const classes = useStyles();
   
@@ -74,58 +74,61 @@ function TypeGame(props) {
   }, []);
 
   const endGame = () => {
-    // printGameStats();
+    console.log('endgame')
     state.gameOver = true;
+    document.removeEventListener('keydown', handleKeyPress)
   }
 
   const moveText = () => {
-    if(state.textPosition > CONTAINER_WIDTH){
+    if(textPosition.current > CONTAINER_WIDTH){
       state.gameTextContainer.style.color = 'red';
+      setState({...state, gameOver: true})
       // endGame();
       return;
     }
     if(state.gameOver){
       return
     }
-    const shiftAmount = BASE_SPEED * speedMutliplier(state.textPosition);
-    state.textPosition += shiftAmount;
-    const rightShift = state.gameTextContainer.style.right;
-    const rightShiftNumeric = Number(rightShift.slice(0, rightShift.length - 2));
-    state.gameTextContainer.style.right = (rightShiftNumeric + shiftAmount) + "px"
-    setState({...state, textPosition: state.textPosition + shiftAmount})
+    const shiftAmount = BASE_SPEED * speedMutliplier(cursorPosition.current);
+    textPosition.current += shiftAmount;
+    cursorPosition.current += shiftAmount;
+    // document.getElementById('game-text').style.right = `${textPosition.current}px`
+    setState({...state, textPosition: textPosition.current})
     requestAnimationFrame(moveText)
   }
 
   const updateWords = () => {
     //if end of game
-    if(state.lettersArray.length + 1 === letterIndex.current){
+    letterIndex.current++;
+    cursorPosition.current -= FONT_WIDTH
+    if(state.lettersArray.length === letterIndex.current){
       return endGame();
     }
     if(state.lettersArray[letterIndex.current] === " "){
       successfulWords.current++;
       visibleLetterIndex.current = letterIndex.current;
     }
-    letterIndex.current++;
     successFlash();
   }
 
-
   const startGame = () => {
-    setState({
-      lettersArray: props.text.split(''),
-      textPosition : 0,
-      successfulWords: 0,
-      time: Date.now(),
-      mistakes: 0,
-      lastWordLetterIndex: 0,
-      mistakesMap: {},
-      gameOver: false,
-    });
-    document.addEventListener('keydown', handleKeyPress);
-    moveText(state);
+    if(!state.gameOver){
+      setState({
+        lettersArray: props.text.split(''),
+        textPosition : -(FONT_WIDTH * props.text.length),
+        successfulWords: 0,
+        time: Date.now(),
+        mistakes: 0,
+        lastWordLetterIndex: 0,
+        gameOver: false,
+      });
+      document.addEventListener('keydown', handleKeyPress);
+      moveText(state);
+    }
   }
 
   const handleKeyPress = event => {
+    console.log('ran')
     //Stopping focus changes on firefox apostrophe click
     event.preventDefault();
     const currentLetter = state.lettersArray[letterIndex.current];
@@ -133,35 +136,28 @@ function TypeGame(props) {
       updateWords();
     }
     else {
-      state.mistakes += 1;
-      state.mistakesMap[currentLetter] = state.mistakesMap[currentLetter] ? state.mistakesMap[currentLetter] + 1 : 1; 
-      document.getElementById('typing-errors').innerHTML = state.mistakes
+      mistakes.current += 1;
+      mistakesMap.current[currentLetter] = mistakesMap.current[currentLetter] ? mistakesMap.current[currentLetter] + 1 : 1;
     }
   }
 
   return (
   <main>
-    <ScoreContainer errors={state.errors} successfulWords={state.successfulWords}/>
+    <ScoreContainer errors={mistakes.current} successfulWords={successfulWords.current}/>
     <div id="game-container">
-      <div id="game-text">
-        {state.lettersArray.map((letter,i) => <Letter 
-          letter={letter.split('')} 
-          key={i} 
-          index={i} 
-          letterIndex={letterIndex.current} 
-          visibleLetterIndex={visibleLetterIndex.current}/>)}
-      </div>
+      <GameText 
+        lettersArray={state.lettersArray} 
+        letterIndex={letterIndex.current} 
+        visibleLetterIndex={visibleLetterIndex.current}
+        rightShift={state.textPosition}/>
     </div>
+    
     <div id="border-sides" className="successFlash">
       <div id="border-top-bottom" className="successFlash">
       </div>
     </div>
     <button id="start" onClick={startGame}>Start Game</button>
-    <section>
-      <ul id="game-stats" className={classes.gameText}>
-
-      </ul>
-    </section>
+    <GameStats stats={state.mistakesMap} />
   </main>
   )
 }
