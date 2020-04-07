@@ -54,7 +54,6 @@ function TypeGame(props) {
     mistakes: 0,
     lastWordLetterIndex: 0,
     mistakesMap: {},
-    gameOver: false,
     textPosition: -(FONT_WIDTH * props.text.length)
   });
 
@@ -65,6 +64,7 @@ function TypeGame(props) {
   const cursorPosition = useRef(0);
   const mistakesMap = useRef({});
   const mistakes = useRef(0);
+  const gameOn = useRef(false);
   const textPosition = useRef(-(FONT_WIDTH * props.text.length));
 
   const classes = useStyles();
@@ -74,19 +74,23 @@ function TypeGame(props) {
   }, []);
 
   const endGame = () => {
-    console.log('endgame')
-    state.gameOver = true;
+    gameOn.current = false;
+    letterIndex.current = 0;
+    visibleLetterIndex.current = 0;
+    successfulWords.current = 0;
+    cursorPosition.current = 0;
+    mistakes.current = {};
+    mistakes.current = 0;
+    textPosition.current = -(FONT_WIDTH * props.text.length);
     document.removeEventListener('keydown', handleKeyPress)
   }
 
   const moveText = () => {
     if(textPosition.current > CONTAINER_WIDTH){
       state.gameTextContainer.style.color = 'red';
-      setState({...state, gameOver: true})
-      // endGame();
-      return;
+      return endGame();
     }
-    if(state.gameOver){
+    if(!gameOn.current){
       return
     }
     const shiftAmount = BASE_SPEED * speedMutliplier(cursorPosition.current);
@@ -112,7 +116,8 @@ function TypeGame(props) {
   }
 
   const startGame = () => {
-    if(!state.gameOver){
+    if(!gameOn.current){
+      console.log('start ran')
       setState({
         lettersArray: props.text.split(''),
         textPosition : -(FONT_WIDTH * props.text.length),
@@ -120,10 +125,10 @@ function TypeGame(props) {
         time: Date.now(),
         mistakes: 0,
         lastWordLetterIndex: 0,
-        gameOver: false,
       });
+      gameOn.current = true;
       document.addEventListener('keydown', handleKeyPress);
-      moveText(state);
+      moveText();
     }
   }
 
