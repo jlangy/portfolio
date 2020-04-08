@@ -1,5 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import { Dialog } from '@material-ui/core'
+import GameEndInfo from './GameEndInfo'
+import { makeStyles } from '@material-ui/core/styles';
+import './effects.css';
+
+const useStyles = makeStyles({
+  countDown: {
+    background: 'rgba(0,0,0,0)',
+    boxShadow: 'none'
+  },
+  number: {
+    fontSize: '10em'
+  },
+  paper: {
+    boxShadow: 'none'
+  },
+  "@keyframes fadeIn": {
+    "0%": {
+      opacity: 0
+    },
+    "100%": {
+      opacity: 1
+    }
+  }
+});
 
 function GameStats(props) {
   const [open, setOpen] = useState(true);
@@ -9,30 +33,38 @@ function GameStats(props) {
     if(countDown === null){
       return;
     }
-    if(countDown === 0){
+    if(countDown === 'Go!'){
       setTimeout(() => {
         setOpen(false);
         props.restart();
       }, 500);
-    } else {
+    } if(countDown === 1){
+      setTimeout(() => {
+        setCountDown('Go!');
+      }, 1200);
+    } else if(countDown > 1) {
       setTimeout(() => {
         setCountDown(countDown => countDown - 1);
-      }, 1000);
+        //reset animation
+        let node = document.getElementById('number');
+        node.classList.remove('number');
+        void node.offsetWidth;
+        node.classList.add("number")
+      }, 1200);
     }
   }, [countDown])
 
   const restart = () => {
     setCountDown(3);
   }
+
+  const classes = useStyles(); 
+
   return (
-    <Dialog open={open}>
-      <h2>Missed Letters:</h2>
-      <ul id="game-stats">
-        {countDown !== false && <h1>{countDown}</h1>}
-        {countDown !== 0 && Object.entries(props.stats).map(([key, value]) => <li key={key}>{key}: {value}</li>)}
-        <button onClick={() => setOpen(false)}>Close</button>
-        <button onClick={restart}>Play Again</button>
-      </ul>
+    <Dialog open={open} classes={countDown !== null ? {paper: classes.countDown} : {paper: classes.paper}}>
+        {countDown !== null && <h1 id="number" className={`${classes.number} number`}>{countDown}</h1>}
+        {countDown === null && <GameEndInfo setOpen={() => setOpen(false)} restart={restart} errors={props.errors} 
+        successfulWords={props.successfulWords} time={props.time}/>}
     </Dialog>
   )
 }

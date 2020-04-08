@@ -2,36 +2,10 @@ import React, {useState, useEffect, useRef} from 'react';
 import ScoreContainer from './ScoreContainer';
 import GameText from './GameText'
 import GameStats from './GameStats'
-import { makeStyles } from '@material-ui/core/styles';
-
 
 const FONT_WIDTH = 12.2;
 const BASE_SPEED = 0.3;
 const CONTAINER_WIDTH = 1000;
-
-const useStyles = makeStyles({
-  gameText: {
-    position: 'relative',
-    right: 0,
-    fontFamily: 'monospace',
-    fontSize: '20px',
-    whiteSpace: 'nowrap',
-    color: 'rgb(255, 123, 71)',
-    display: 'flex',
-  }
-});
-
-const successFlash = () => {
-  const borderArray = Array.from(document.getElementsByClassName('successFlash'));
-  borderArray.forEach((el) => {
-    el.style.animation = 'successFlash .3s'
-  });
-  setTimeout(() => {
-    borderArray.forEach(el => {
-      el.style.animation = ''
-    })
-  }, 300);
-}
 
 const speedMutliplier = textPosition => {
   if(textPosition < CONTAINER_WIDTH / 4){
@@ -77,8 +51,6 @@ function TypeGame(props) {
   const gameOn = useRef(false);
   const [gameEnd, setGameEnd] = useState(false);
   const textPosition = useRef(-(FONT_WIDTH * props.text.length));
-
-  const classes = useStyles();
   
   useEffect(() => {
     setState({...state, gameTextContainer:document.getElementById('game-text')})
@@ -117,7 +89,6 @@ function TypeGame(props) {
       setSuccessfulWords();
       visibleLetterIndex.current = letterIndex.current;
     }
-    successFlash();
   }
 
   const reset = () => {
@@ -159,7 +130,6 @@ function TypeGame(props) {
     else {
       mistakes.current += 1;
       mistakesMap.current[event.key] = mistakesMap.current[event.key] ? mistakesMap.current[event.key] + 1 : 1;
-      console.log(mistakesMap)
     }
   }
 
@@ -173,13 +143,8 @@ function TypeGame(props) {
         visibleLetterIndex={visibleLetterIndex.current}
         rightShift={state.textPosition}/>
     </div>
-    
-    <div id="border-sides" className="successFlash">
-      <div id="border-top-bottom" className="successFlash">
-      </div>
-    </div>
     <button id="start" onClick={startGame}>Start Game</button>
-    {gameEnd && <GameStats stats={mistakesMap.current} restart={startGame} />}
+    {gameEnd && <GameStats time={state.time} successfulWords={successfulWords} errors={mistakes.current} restart={startGame} />}
   </main>
   )
 }
