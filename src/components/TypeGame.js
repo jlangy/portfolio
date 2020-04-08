@@ -24,7 +24,6 @@ function TypeGame(props) {
   const [state, setState] = useState({
     gameTextContainer: document.getElementById('game-text'),
     lettersArray: props.text.split(''),
-    time: Date.now(),
     mistakes: 0,
     lastWordLetterIndex: 0,
     mistakesMap: {},
@@ -34,6 +33,7 @@ function TypeGame(props) {
   //Updated in event handler, need to use a ref to get current values
   const letterIndex = useRef(0);
   const visibleLetterIndex = useRef(0);
+  const time = useRef(Date.now());
   
   const successfulWordsRef = useRef(0);
   const [successfulWords, _setSuccessfulWords] = useState(0);
@@ -99,11 +99,11 @@ function TypeGame(props) {
     mistakesMap.current = {};
     mistakes.current = 0;
     textPosition.current = -(FONT_WIDTH * props.text.length);
+    time.current = Date.now();
     state.gameTextContainer.style.color = 'orange';
     setState({
       lettersArray: props.text.split(''),
       textPosition : -(FONT_WIDTH * props.text.length),
-      time: Date.now(),
       mistakes: 0,
       lastWordLetterIndex: 0,
     });
@@ -144,7 +144,7 @@ function TypeGame(props) {
         rightShift={state.textPosition}/>
     </div>
     <button id="start" onClick={startGame}>Start Game</button>
-    {gameEnd && <GameStats time={state.time} successfulWords={successfulWords} errors={mistakes.current} restart={startGame} />}
+    {gameEnd && <GameStats time={time.current} successfulWords={successfulWords} errors={mistakes.current} restart={startGame} />}
   </main>
   )
 }
