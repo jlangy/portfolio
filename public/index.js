@@ -140,4 +140,4 @@ const printGameStats = () => {
   }
 }
 
-window.onload = () => {document.getElementById('start').addEventListener('click', startGame)};
+// window.onload = () => {document.getElementById('start').addEventListener('click', startGame)};

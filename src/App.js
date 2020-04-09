@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Introduction from './components/Introduction'
 import TypeGame from './components/TypeGame'
+import ProjectCard from './components/ProjectCard';
 const FONT_WIDTH = 12.2;
 const BASE_SPEED = .15;
 const CONTAINER_WIDTH = 1000;
@@ -160,7 +161,8 @@ function App() {
   return (
     <div className="App">
       <Introduction />
-      <TypeGame />
+      {/* <TypeGame /> */}
+      <ProjectCard />
     </div>
   );
 }
