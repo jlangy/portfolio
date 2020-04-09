@@ -1,12 +1,20 @@
 import React, {useState} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
+import { findByLabelText } from '@testing-library/react';
 
 const useStyles = makeStyles({
-  container: {
+  slide: {
     backgroundSize: 'cover',
     height: '300px',
+    width: '345px !important',
     display: 'inline-block'
   },
+  container: {
+    height: '300px',
+    width: '690px',
+    position: 'relative',
+    transition: 'right 0.5s'
+  }
 });
 
 function ImageCarousel() {
@@ -33,15 +41,14 @@ function ImageCarousel() {
 
   return (
     <div>
-      <div className={classes.container} style={{backgroundImage: 'url(dog.jpeg)', width: backgroundImageIndex == 0 ? '100%' : 0}}>
-        <i className="fas fa-chevron-left" style={{visibility: backgroundImageIndex == 0 ? '' : 'hidden'}} onClick={switchLeft}></i>
-        <i className="fas fa-chevron-right" style={{visibility: backgroundImageIndex == 0 ? '' : 'hidden'}} onClick={switchRight}></i>
+      <div className={classes.container} style={{right: `${345 * backgroundImageIndex}px`}}>
+        <div className={classes.slide} style={{backgroundImage: 'url(dog.jpeg)'}}>
+        </div>
+        <div className={classes.slide} style={{backgroundImage: 'url(dog2.jpeg)'}}>
+        </div>
       </div>
-
-      <div className={classes.container} style={{backgroundImage: 'url(dog2.jpeg)', width: backgroundImageIndex == 1 ? '100%' : 0}}>
-        <i className="fas fa-chevron-left" style={{visibility: backgroundImageIndex == 1 ? '' : 'hidden'}} onClick={switchLeft}></i>
-        <i className="fas fa-chevron-right" style={{visibility: backgroundImageIndex == 1 ? '' : 'hidden'}} onClick={switchRight}></i>
-      </div>
+      <i className="fas fa-chevron-left" style={{display: backgroundImageIndex == 1 ? '' : 'none'}} onClick={switchLeft}></i>
+      <i className="fas fa-chevron-right" style={{diaply: backgroundImageIndex == 1 ? '' : 'none'}} onClick={switchRight}></i>
     </div>
   )
 }
