@@ -139,3 +139,5 @@ const printGameStats = () => {
     container.append(letterStatEl)
   }
 }
+
+window.onload = () => {document.getElementById('start').addEventListener('click', startGame)};
