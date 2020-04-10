@@ -21,8 +21,9 @@ export default function ProjectCard() {
   return (
     <Card className={classes.root}>
       <ImageCarousel
-        image="/dog.jpeg"
-        title="Contemplative Reptile"
+        height='300'
+        width='345'
+        slides={['url(dog.jpeg)', 'url(dog2.jpeg)', 'url(dog3.jpeg)']}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
