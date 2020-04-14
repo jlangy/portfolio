@@ -63,7 +63,7 @@ function ImageCarousel(props) {
   return (
     <div style={{position: 'relative'}}>
       <div className={classes.container} style={containerStyle}>
-        {props.slides.map(slide => <div className={classes.slide} style={{...slideStyle, backgroundImage: slide}}>
+        {props.slides.map((slide,i) => <div key={i} className={classes.slide} style={{...slideStyle, backgroundImage: slide}}>
         </div>)}
       </div>
       <i className={"fas fa-chevron-left " + classes.leftArrow} onClick={switchLeft} style={arrowStyle}></i>
