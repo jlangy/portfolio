@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function ProjectCard() {
+export default function ProjectCard(props) {
   const classes = useStyles();
 
   return (
@@ -28,18 +28,17 @@ export default function ProjectCard() {
       <ImageCarousel
         height='300'
         width='345'
-        slides={['url(dog.jpeg)', 'url(dog2.jpeg)', 'url(dog3.jpeg)']}
+        slides={props.project.pictures}
       />
       <CardContent>
         <Typography gutterBottom variant="h4" component="h2">
           <span className={classes.projectHeader}>
-            Lizard
+            {props.project.title}
             <i className={classes.projectLink + " fab fa-github"}></i>
           </span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        {props.project.content}
         </Typography>
       </CardContent>
     </Card>
