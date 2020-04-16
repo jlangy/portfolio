@@ -34,25 +34,33 @@ const tags = {
 function ProjectsGrid() {
   const classes = useStyles();
   const [activeTags, setActiveTags] = useState(tags)
+  const [activeProjects, setActiveProjects] = useState(projects);
   
   const filterTags = (tag) => {
     if(activeTags[tag]){
       const newTags = {...activeTags};
       newTags[tag] = false;
-      setActiveTags(newTags)
+      setActiveTags(newTags);
+      filterProjects(newTags)
     }
     else {
       const newTags = {...activeTags};
       newTags[tag] = true;
       setActiveTags(newTags)
+      filterProjects(newTags)
     }
+  }
+
+  const filterProjects = (tags) => {
+    const activeProjects = projects.filter(project => project.tags.some(tag => tags[tag]));
+    setActiveProjects(activeProjects);
   }
 
   return (
     <>
       <ProjectSelector activeTags={activeTags} filterTags={filterTags}/>
       <div className={classes.grid}>
-        {Object.values(projects).map((project, i) => <div className={classes.square} key={i}><ProjectCard project={project}/></div>)}
+        {Object.values(activeProjects).map((project, i) => <div className={classes.square} key={i}><ProjectCard project={project}/></div>)}
       </div>
     </>
   )
