@@ -20,15 +20,37 @@ const projects = [{title: 'spider', content: 'content one', github: 'githuburl',
 {title: 'elf', content: 'content 3', github: 'githuburl', pictures: ['url(dog.jpeg)', 'url(dog2.jpeg)', 'url(dog3.jpeg)'], tags: ['python', 'node', 'express']},
 {title: 'pig', content: 'content 4', github: 'githuburl', pictures: ['url(dog.jpeg)', 'url(dog2.jpeg)', 'url(dog3.jpeg)'],tags: ['js', 'node']}];
 
+const tags = {
+  'js': true,
+  'node': true,
+  'express': true,
+  'HTML': true,
+  'ruby': true,
+  'python': true,
+  'rails': true
+};
 
 
 function ProjectsGrid() {
   const classes = useStyles();
-
+  const [activeTags, setActiveTags] = useState(tags)
+  
+  const filterTags = (tag) => {
+    if(activeTags[tag]){
+      const newTags = {...activeTags};
+      newTags[tag] = false;
+      setActiveTags(newTags)
+    }
+    else {
+      const newTags = {...activeTags};
+      newTags[tag] = true;
+      setActiveTags(newTags)
+    }
+  }
 
   return (
     <>
-      <ProjectSelector/>
+      <ProjectSelector activeTags={activeTags} filterTags={filterTags}/>
       <div className={classes.grid}>
         {Object.values(projects).map((project, i) => <div className={classes.square} key={i}><ProjectCard project={project}/></div>)}
       </div>
