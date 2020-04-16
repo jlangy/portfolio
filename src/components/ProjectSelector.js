@@ -10,6 +10,10 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-around',
     flexWrap: 'wrap'
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: '2em'
   }
 });
 
@@ -19,7 +23,8 @@ function ProjectSelector(props) {
 
   return (
     <div className={classes.container}>
-      <h2>Tags</h2>
+      <h2 className={classes.title}>Show projects using: 
+      </h2>
       <div className={classes.tags}>
         {Object.entries(props.activeTags).map((tag, i) => <Tag tagName={tag[0]} active={tag[1]} key={i} filterTags={props.filterTags}/>)}
       </div>

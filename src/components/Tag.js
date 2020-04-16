@@ -16,15 +16,20 @@ const useStyles = makeStyles({
     background: 'green'
   },
   inactive: {
-    background: 'red'
-  }
+    background: 'red',
+    boxShadow: '2px 2px black',
+    position: 'relative',
+    bottom: '2px',
+    right: '2px'
+  },
 });
 
 function Tag(props) {
   const classes = useStyles();
+  console.log(typeof classes.tag)
 
   return (
-    <div className={classes.tag} style={{background: props.active ? 'red' : 'green'}} onClick={() => props.filterTags(props.tagName)}>
+    <div className={classes.tag + " " + (props.active ? classes.active : classes.inactive)} onClick={() => props.filterTags(props.tagName)}>
       {props.tagName}
     </div>
   )

@@ -29,7 +29,7 @@ function ImageCarousel(props) {
   const classes = useStyles();
 
   const switchRight = () => {
-    if(backgroundImageIndex < 2){
+    if(backgroundImageIndex < props.slides.length - 1){
       setBackgroundImageIndex(prev => prev + 1);
     } else {
       setBackgroundImageIndex(0);
