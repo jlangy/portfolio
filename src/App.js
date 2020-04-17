@@ -158,10 +158,12 @@ const CONTAINER_WIDTH = 1000;
 // }
 
 function App() {
+  const [playing, setPlaying] = useState(true);
+
   return (
     <div className="App">
       <Introduction />
-      {/* <TypeGame /> */}
+      <TypeGame style={{height: playing ? 500 : 0}}/>
       <ProjectGrid />
     </div>
   );

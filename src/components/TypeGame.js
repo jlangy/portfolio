@@ -6,6 +6,7 @@ import GameStats from './GameStats'
 const FONT_WIDTH = 12.2;
 const BASE_SPEED = 0.3;
 const CONTAINER_WIDTH = 1000;
+const text="some sample text"
 
 const speedMutliplier = textPosition => {
   if(textPosition < CONTAINER_WIDTH / 4){
@@ -19,15 +20,15 @@ const speedMutliplier = textPosition => {
   }
 }
 
-function TypeGame(props) {
+function TypeGame() {
 
   const [state, setState] = useState({
     gameTextContainer: document.getElementById('game-text'),
-    lettersArray: props.text.split(''),
+    lettersArray: text.split(''),
     mistakes: 0,
     lastWordLetterIndex: 0,
     mistakesMap: {},
-    textPosition: -(FONT_WIDTH * props.text.length)
+    textPosition: -(FONT_WIDTH * text.length)
   });
 
   //Updated in event handler, need to use a ref to get current values
@@ -50,7 +51,7 @@ function TypeGame(props) {
   const mistakes = useRef(0);
   const gameOn = useRef(false);
   const [gameEnd, setGameEnd] = useState(false);
-  const textPosition = useRef(-(FONT_WIDTH * props.text.length));
+  const textPosition = useRef(-(FONT_WIDTH * text.length));
   
   useEffect(() => {
     setState({...state, gameTextContainer:document.getElementById('game-text')})
@@ -98,12 +99,12 @@ function TypeGame(props) {
     cursorPosition.current = 0;
     mistakesMap.current = {};
     mistakes.current = 0;
-    textPosition.current = -(FONT_WIDTH * props.text.length);
+    textPosition.current = -(FONT_WIDTH * text.length);
     time.current = Date.now();
     state.gameTextContainer.style.color = 'orange';
     setState({
-      lettersArray: props.text.split(''),
-      textPosition : -(FONT_WIDTH * props.text.length),
+      lettersArray: text.split(''),
+      textPosition : -(FONT_WIDTH * text.length),
       mistakes: 0,
       lastWordLetterIndex: 0,
     });
