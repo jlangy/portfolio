@@ -23,6 +23,7 @@ function Introduction(props) {
           <div className="introduction-text">
             <h1>Jon Langlois</h1>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur soluta eum, assumenda, totam minima dolore adipisci cumque reiciendis accusantium vero alias. Repudiandae eius doloremque qui sunt nisi, itaque a perferendis.</p>
+            <span onClick={props.startGame} style={{cursor: 'pointer'}}>Begin!</span>
           </div>
           <Avatar className={classes.avatar} src="./me.jpeg" alt="Jon Langlois" />
         </CardContent>

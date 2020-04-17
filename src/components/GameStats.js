@@ -58,12 +58,17 @@ function GameStats(props) {
     setCountDown(3);
   }
 
+  const close = () => {
+    setOpen(false);
+    props.close();
+  }
+
   const classes = useStyles(); 
 
   return (
     <Dialog open={open} classes={countDown !== null ? {paper: classes.countDown} : {paper: classes.paper}}>
         {countDown !== null && <h1 id="number" className={`${classes.number} number`}>{countDown}</h1>}
-        {countDown === null && <GameEndInfo setOpen={() => setOpen(false)} restart={restart} errors={props.errors} 
+        {countDown === null && <GameEndInfo setOpen={close} restart={restart} errors={props.errors} 
         successfulWords={props.successfulWords} time={props.time}/>}
     </Dialog>
   )

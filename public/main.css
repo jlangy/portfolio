@@ -64,12 +64,6 @@ main{
   font-size: 1.2em;
 }
 
-#score-container{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 @keyframes successFlash {
   0% {
     opacity: 0;

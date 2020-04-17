@@ -2,11 +2,40 @@ import React, {useState, useEffect, useRef} from 'react';
 import ScoreContainer from './ScoreContainer';
 import GameText from './GameText'
 import GameStats from './GameStats'
+import { makeStyles } from "@material-ui/core/styles";
 
 const FONT_WIDTH = 12.2;
 const BASE_SPEED = 0.3;
 const CONTAINER_WIDTH = 1000;
 const text="some sample text"
+
+const useStyles = makeStyles({
+  container: {
+    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100vw',
+    overflow: 'hidden',
+    alignItems: 'center',
+    transition: 'height 0.4s'
+  },
+  title: {
+    fontSize: "2em",
+    fontFamily: "Bangers",
+    display: 'inline-block'
+  },
+  startBtn: {
+    background: 'orange',
+    border: 'none',
+    marginLeft: "20px",
+    fontSize: '1.9em',
+    fontFamily: "Bangers",
+    color: "red",
+    borderRadius: '5px',
+    cursor: 'pointer'
+  }
+});
 
 const speedMutliplier = textPosition => {
   if(textPosition < CONTAINER_WIDTH / 4){
@@ -20,7 +49,7 @@ const speedMutliplier = textPosition => {
   }
 }
 
-function TypeGame() {
+function TypeGame(props) {
 
   const [state, setState] = useState({
     gameTextContainer: document.getElementById('game-text'),
@@ -52,10 +81,6 @@ function TypeGame() {
   const gameOn = useRef(false);
   const [gameEnd, setGameEnd] = useState(false);
   const textPosition = useRef(-(FONT_WIDTH * text.length));
-  
-  useEffect(() => {
-    setState({...state, gameTextContainer:document.getElementById('game-text')})
-  }, []);
 
   const endGame = () => {
     gameOn.current = false;
@@ -65,7 +90,7 @@ function TypeGame() {
 
   const moveText = () => {
     if(cursorPosition.current > CONTAINER_WIDTH){
-      state.gameTextContainer.style.color = 'red';
+      document.getElementById('game-text').style.color = 'red';
       return endGame();
     }
     if(!gameOn.current){
@@ -101,20 +126,14 @@ function TypeGame() {
     mistakes.current = 0;
     textPosition.current = -(FONT_WIDTH * text.length);
     time.current = Date.now();
-    state.gameTextContainer.style.color = 'orange';
-    setState({
-      lettersArray: text.split(''),
-      textPosition : -(FONT_WIDTH * text.length),
-      mistakes: 0,
-      lastWordLetterIndex: 0,
-    });
+    document.getElementById('game-text').style.color = 'orange';  
     setGameEnd(false);
   }
 
   const startGame = () => {
     if(!gameOn.current){
+      document.getElementById('start-btn').blur();
       reset();
-      document.getElementById('start').blur();
       gameOn.current = true;
       document.addEventListener('keydown', handleKeyPress);
       moveText();
@@ -134,9 +153,14 @@ function TypeGame() {
     }
   }
 
+  const classes = useStyles();
+
   return (
-  <main>
-    <ScoreContainer errors={mistakes.current} successfulWords={successfulWords}/>
+  <main style={{height: props.playing ? 200 : 0}} className={classes.container}>
+    <div>
+      <h2 className={classes.title}>Typeracer</h2>
+      <button className={classes.startBtn} id='start-btn' onClick={startGame}>Go!</button>
+    </div>
     <div id="game-container">
       <GameText 
         lettersArray={state.lettersArray} 
@@ -144,8 +168,8 @@ function TypeGame() {
         visibleLetterIndex={visibleLetterIndex.current}
         rightShift={state.textPosition}/>
     </div>
-    <button id="start" onClick={startGame}>Start Game</button>
-    {gameEnd && <GameStats time={time.current} successfulWords={successfulWords} errors={mistakes.current} restart={startGame} />}
+    <ScoreContainer errors={mistakes.current} successfulWords={successfulWords}/>
+    {gameEnd && <GameStats time={time.current} successfulWords={successfulWords} errors={mistakes.current} restart={startGame} close={props.close}/>}
   </main>
   )
 }
