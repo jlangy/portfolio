@@ -7,6 +7,10 @@ const useStyles = makeStyles({
   },
   hidden: {
     visibility: 'hidden'
+  },
+  position: {
+    position: "absolute",
+    right: '-12.1833px'
   }
 });
 function Letter(props) {
@@ -14,7 +18,7 @@ function Letter(props) {
 
   const green = props.letterIndex <= props.index ? '' : classes.green;
   const hidden = props.visibleLetterIndex <= props.index ? '': classes.hidden;
-  const appliedClasses = `${green} ${hidden}`
+  const appliedClasses = `${green} ${hidden} ${classes.position}`
 
   return (
     <span className={appliedClasses}>

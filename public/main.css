@@ -64,6 +64,26 @@ main{
   font-size: 1.2em;
 }
 
+#type-game {
+  transition: height 1s;
+  height: 0;
+  overflow: hidden;
+}
+
+#gameInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+  font-family: Bangers;
+  font-size: 1.2em;
+}
+
+#game-title {
+  font-size: 2em;
+  font-family: Bangers;
+  text-align: center;
+}
+
 @keyframes successFlash {
   0% {
     opacity: 0;

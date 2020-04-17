@@ -129,11 +129,6 @@ const moveText = () => {
   requestAnimationFrame(moveText)
 }
 
-document.getElementById('start').addEventListener('click', () => {
-  startGame();
-  document.getElementById('start').blur();
-});
-
 const printGameStats = () => {
   const container = document.getElementById('game-stats');
   container.append(document.createElement('h2').innerHTML = 'Missed Letter Stats')
@@ -146,4 +141,32 @@ const printGameStats = () => {
     letterStatEl.innerHTML = `${stat[0]} : ${stat[1]}`
     container.append(letterStatEl)
   }
+}
+
+const openGame = () => {
+  const open = document.getElementById('type-game').style.height === '300px'
+  document.getElementById('type-game').style.height = open ? "0px" : "300px"
+}
+
+window.onload = () => {
+  const typeGame = document.createElement('div')
+  typeGame.innerHTML = `
+  <section id="type-game">
+  <main>
+    <h2 id="game-title">Typeracer </h2>
+    <div id="game-container">
+      <div id="game-text"></div>
+    </div>
+    <div id="gameInfo">
+      <div>Successful Words: <span id="successful-words">0</span></div>
+      <div>Errors: <span id="typing-errors">0</span></div>
+    </div>
+    <button id="start">Start Game</button>
+    <section>
+      <ul id="game-stats"></ul>
+    </section>
+  </main>
+</section>`;
+  document.getElementById('projects').parentNode.insertBefore(typeGame, document.getElementById('projects'));
+  document.getElementById('game-dropdown-btn').addEventListener('click', openGame)  
 }

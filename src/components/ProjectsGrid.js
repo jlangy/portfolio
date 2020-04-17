@@ -106,19 +106,21 @@ function ProjectsGrid() {
   };
 
   return (
-    <Container className={classes.profileContainer} >
-      <Card >
-        <ProjectSelector activeTags={activeTags} filterTags={filterTags} />
-        <h2 className={classes.title}>Projects</h2>
-        <div className={classes.grid}>
-          {Object.values(activeProjects).map((project, i) => (
-            <div className={classes.square} key={i}>
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
-      </Card>
-    </Container>
+    <div id='projects'>
+      <Container className={classes.profileContainer} >
+        <Card >
+          <ProjectSelector activeTags={activeTags} filterTags={filterTags} />
+          <h2 className={classes.title}>Projects</h2>
+          <div className={classes.grid}>
+            {Object.values(activeProjects).map((project, i) => (
+              <div className={classes.square} key={i}>
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </div>
+        </Card>
+      </Container>
+    </div>
   );
 }
 

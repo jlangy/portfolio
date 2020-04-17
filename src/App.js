@@ -5,11 +5,10 @@ import TypeGame from './components/TypeGame'
 import ProjectGrid from './components/ProjectsGrid';
 
 function App() {
-  const [playing, setPlaying] = useState(false);
 
   return (
     <div className="App">
-      <Introduction startGame={() => setPlaying(prev => !prev)}/>
+      <Introduction/>
       {/* <TypeGame playing={playing} close={() => setPlaying(false)}/> */}
       <ProjectGrid />
     </div>
