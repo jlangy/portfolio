@@ -22,11 +22,10 @@ function ScoreContainer(props) {
   return (
     <div id="score-container" className={classes.container}>
       <div className={classes.gameInformation}>
-        Successful Words: <span>{props.successfulWords}</span>
+        Successful Words: <span id="successful-words"></span>
       </div>
-      {/* <div>WPM: <span>{props.wpm}</span></div> */}
       <div id="typing-errors" className={classes.gameInformation}>
-        Errors: <span>{props.errors}</span>
+        Errors: <span></span>
       </div>
     </div>
   );

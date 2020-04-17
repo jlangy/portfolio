@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Introduction startGame={() => setPlaying(prev => !prev)}/>
-      <TypeGame playing={playing} close={() => setPlaying(false)}/>
+      {/* <TypeGame playing={playing} close={() => setPlaying(false)}/> */}
       <ProjectGrid />
     </div>
   );
