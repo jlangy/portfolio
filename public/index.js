@@ -25,7 +25,6 @@ const resetDom = () => {
   document.getElementById('game-text').innerHTML = '';
   document.getElementById('game-text').style.color = 'rgb(255, 123, 71)';
   document.getElementById('successful-words').innerHTML = '0'
-  document.getElementById('wpm').innerHTML = '0'
   document.getElementById('typing-errors').innerHTML = '0'
   document.getElementById('game-stats').innerHTML = ''
 }
@@ -153,7 +152,10 @@ window.onload = () => {
   typeGame.innerHTML = `
   <section id="type-game">
   <main>
-    <h2 id="game-title">Typeracer </h2>
+  <div id="game-title-container">
+    <h2 class="game-title">Typeracer </h2>
+    <button id="start" onclick="startGame()">Start Game</button>
+  </div>
     <div id="game-container">
       <div id="game-text"></div>
     </div>
@@ -161,12 +163,11 @@ window.onload = () => {
       <div>Successful Words: <span id="successful-words">0</span></div>
       <div>Errors: <span id="typing-errors">0</span></div>
     </div>
-    <button id="start">Start Game</button>
     <section>
       <ul id="game-stats"></ul>
     </section>
   </main>
 </section>`;
   document.getElementById('projects').parentNode.insertBefore(typeGame, document.getElementById('projects'));
-  document.getElementById('game-dropdown-btn').addEventListener('click', openGame)  
+  document.getElementById('game-dropdown-btn').addEventListener('click', openGame);
 }

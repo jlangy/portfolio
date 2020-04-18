@@ -78,10 +78,27 @@ main{
   font-size: 1.2em;
 }
 
-#game-title {
-  font-size: 2em;
+#game-title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.game-title {
   font-family: Bangers;
-  text-align: center;
+  font-size: 2em;
+  margin: 0;
+}
+
+#start {
+  border: none;
+  background: orange;
+  color: red;
+  font-size: 1.8em;
+  font-family: Bangers;
+  border-radius: 5px;
+  margin-left: 10px;
+
 }
 
 @keyframes successFlash {
