@@ -8,7 +8,8 @@ const useStyles = makeStyles({
   },
   container: {
     position: 'relative',
-    transition: 'right 0.5s'
+    transition: 'right 0.5s',
+    height: '300px'
   },
   leftArrow: {
     position: 'absolute', 

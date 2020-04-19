@@ -109,7 +109,7 @@ function ProjectsGrid() {
     <div id='projects'>
       <Container className={classes.profileContainer} >
         <Card >
-          <ProjectSelector activeTags={activeTags} filterTags={filterTags} />
+          {/* <ProjectSelector activeTags={activeTags} filterTags={filterTags} /> */}
           <h2 className={classes.title}>Projects</h2>
           <div className={classes.grid}>
             {Object.values(activeProjects).map((project, i) => (

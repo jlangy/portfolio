@@ -4,7 +4,17 @@ main{
   margin-top: 50px;
 }
 
+html, body {
+  background: #454851 !important
+}
 
+.MuiCard-root {
+  background: #dbd6bc !important;
+}
+
+.MuiCardContent-root {
+  background-color: #f5edf0;
+}
 
 #game-container {
   background: rgb(61, 61, 61);
@@ -65,7 +75,7 @@ main{
 }
 
 #type-game {
-  transition: height 1s;
+  transition: height 0.5s;
   height: 0;
   overflow: hidden;
 }

@@ -1,5 +1,5 @@
 const FONT_WIDTH = 12.18333;
-const BASE_SPEED = .1;
+const BASE_SPEED = .3;
 const CONTAINER_WIDTH = 1000;
 
 
@@ -41,7 +41,6 @@ const generateGameLetters = () => {
 }
 
 const startGame = () => {
-  console.log(state.gameOver)
   if(state.gameOver){
     state = setState();
     resetDom();
@@ -80,7 +79,6 @@ const updateWords = () => {
 }
 
 const endGame = () => {
-  printGameStats();
   state.gameOver = true;
 }
 
@@ -144,7 +142,13 @@ const printGameStats = () => {
 
 const openGame = () => {
   const open = document.getElementById('type-game').style.height === '300px'
-  document.getElementById('type-game').style.height = open ? "0px" : "300px"
+  if(open){
+    document.getElementById('type-game').style.height = "0px";
+    endGame();
+    resetDom();
+  } else {
+    document.getElementById('type-game').style.height = "300px";
+  }
 }
 
 window.onload = () => {
