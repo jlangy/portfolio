@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Introduction from './components/Introduction'
 import ProjectGrid from './components/ProjectsGrid';
