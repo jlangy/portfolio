@@ -8,7 +8,7 @@ import ImageCarousel from './ImageCarousel'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    margin: 'auto'
+    margin: 'auto',
   },
   projectHeader: {
     display: 'flex',
