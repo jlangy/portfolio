@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ProjectCard from "./ProjectCard";
-import ProjectSelector from "./ProjectSelector";
-import { Card, CardContent, Avatar, Container } from "@material-ui/core";
+import { Card, Container } from "@material-ui/core";
 
 const useStyles = makeStyles({
   grid: {
     backgroundSize: "cover",
-    display: "inline-block",
     position: "relative",
     display: "flex",
     flexWrap: "wrap",
@@ -68,42 +66,42 @@ const projects = [
   },
 ];
 
-const tags = {
-  javascript: true,
-  node: true,
-  express: true,
-  HTML: true,
-  ruby: true,
-  python: true,
-  rails: true,
-  jquery: true
-};
+// const tags = {
+//   javascript: true,
+//   node: true,
+//   express: true,
+//   HTML: true,
+//   ruby: true,
+//   python: true,
+//   rails: true,
+//   jquery: true
+// };
 
 function ProjectsGrid() {
   const classes = useStyles();
-  const [activeTags, setActiveTags] = useState(tags);
-  const [activeProjects, setActiveProjects] = useState(projects);
+  // const [activeTags, setActiveTags] = useState(tags);
+  // const [activeProjects, setActiveProjects] = useState(projects);
 
-  const filterTags = (tag) => {
-    if (activeTags[tag]) {
-      const newTags = { ...activeTags };
-      newTags[tag] = false;
-      setActiveTags(newTags);
-      filterProjects(newTags);
-    } else {
-      const newTags = { ...activeTags };
-      newTags[tag] = true;
-      setActiveTags(newTags);
-      filterProjects(newTags);
-    }
-  };
+  // const filterTags = (tag) => {
+  //   if (activeTags[tag]) {
+  //     const newTags = { ...activeTags };
+  //     newTags[tag] = false;
+  //     setActiveTags(newTags);
+  //     filterProjects(newTags);
+  //   } else {
+  //     const newTags = { ...activeTags };
+  //     newTags[tag] = true;
+  //     setActiveTags(newTags);
+  //     filterProjects(newTags);
+  //   }
+  // };
 
-  const filterProjects = (tags) => {
-    const activeProjects = projects.filter((project) =>
-      project.tags.some((tag) => tags[tag])
-    );
-    setActiveProjects(activeProjects);
-  };
+  // const filterProjects = (tags) => {
+  //   const activeProjects = projects.filter((project) =>
+  //     project.tags.some((tag) => tags[tag])
+  //   );
+  //   setActiveProjects(activeProjects);
+  // };
 
   return (
     <div id='projects'>
@@ -112,7 +110,7 @@ function ProjectsGrid() {
           {/* <ProjectSelector activeTags={activeTags} filterTags={filterTags} /> */}
           <h2 className={classes.title}>Projects</h2>
           <div className={classes.grid}>
-            {Object.values(activeProjects).map((project, i) => (
+            {Object.values(projects).map((project, i) => (
               <div className={classes.square} key={i}>
                 <ProjectCard project={project} />
               </div>
