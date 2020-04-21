@@ -86,7 +86,7 @@ const handleKeyPress = event => {
   //Stopping focus changes on firefox apostrophe click
   event.preventDefault();
   const currentLetter = state.wordsArray[state.wordIndex][state.letterIndex];
-  if(event.key === currentLetter.toLowerCase()){
+  if(event.key === currentLetter){
     state.totalLetters += 1;
     updateWords();
   }

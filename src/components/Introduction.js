@@ -39,6 +39,10 @@ const useStyles = makeStyles({
     fontSize: '2em',
     textAlign: 'center',
     paddingRight: '20px'
+  },
+  gameDropdown: {
+    cursor: 'pointer',
+    fontFamily: "Bangers"
   }
 });
 
@@ -53,10 +57,10 @@ function Introduction(props) {
         </div>
         <hr className={classes.hr}></hr>
         <div className="introduction-text">
-          <p className={classes.introText}>Hello! I am Jon Langlois, a Victoria-based full-stack web developer. I'm always up for a puzzle, and enjoy
+          <p className={classes.introText}>I'm a Victoria-based full-stack web developer. I'm always up for a puzzle, and enjoy
           digging into a project that involves a lot of problem solving. In my free time, I love to make fun games, check one out 
-          <span style={{cursor: 'pointer'}} id="game-dropdown-btn"> Here</span>. Feel free to have a look at some of my recent projects below, or
-          <a href="mailto:jonathan-langlois@live.ca"> get in touch.</a>
+          <span className={classes.gameDropdown} id="game-dropdown-btn"> Here</span>. Feel free to have a look at some of my recent projects below,
+           or <a href="mailto:jonathan-langlois@live.ca">get in touch.</a>
 
           </p>
         </div>

@@ -16,6 +16,16 @@ html, body {
   background-color: #f5edf0;
 }
 
+a {
+  font-style: italic;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
 #game-container {
   background: rgb(61, 61, 61);
   border-radius: 50px;
