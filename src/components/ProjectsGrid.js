@@ -54,7 +54,7 @@ const projects = [
     title: "tweeter",
     content: "A restyled twitter clone for posting short messages",
     github: "https://github.com/jlangy/tweeter",
-    pictures: ["url(tweeter1.png)", "url(tweeter2.png)"],
+    pictures: ["url(tweeter1.png)", "url(tweeter2.png)", "url(tweeter3.png)"],
     tags: ["sass", "jquery", 'javascript'],
   },
   {
