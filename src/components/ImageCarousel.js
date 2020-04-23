@@ -3,8 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   slide: {
-    backgroundSize: 'cover',
-    display: 'inline-block'
+    backgroundSize: 'contain',
+    backgroundRepeat: "no-repeat",
+    display: 'inline-block',
+    backgroundPosition: 'center top',
+    backgroundColor: '#f5edf0'
   },
   container: {
     position: 'relative',
