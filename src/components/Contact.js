@@ -31,7 +31,6 @@ function Introduction(props) {
           <span className={classes.item}>Email me at: <a href="mailto:jonathan-langlois@live.ca">jonathan-langlois@live.ca</a></span>
           <span className={classes.item}>See my <a href="www.linkedin.com/in/jon-langlois-00878ab8">Linkedin</a> profile</span>
           <span className={classes.item}>Check out more work at <a href="https://github.com/">Github</a></span>
-          <span className={classes.item}>See some code snippets at <a href="https://codepen.io/jlangy">Codepen</a></span>
         </section>
       </Card>
     </Container>

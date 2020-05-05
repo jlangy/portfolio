@@ -1,23 +1,19 @@
 const FONT_WIDTH = 12.18333;
-const BASE_SPEED = .3;
+const BASE_SPEED = 0.35;
 const CONTAINER_WIDTH = 1000;
 
 
 const setState = () => {
   return {
-    wordsArray: [],
     gameTextContainer : document.getElementById('game-text'),
-    gameText : `What's our go to market strategy? golden goose vec. Bleeding edge time vampire drink from the firehose, eighteen nineteen twenty What's our go to market strategy? golden goose vec. Bleeding edge time vampire drink from the firehose, eighteen nineteen twenty What's our go to market strategy? golden goose vec. Bleeding edge time vampire drink from the firehose, eighteen nineteen twenty`,
+    gameText : `Thanks for reading my intro! The idea behind this game is to teach typing using scrolling text to encourage students not to look at the keyboard. Focus on accuracy, keeping your eyes on the text, and build up your confidence in finding the keys from memory. The text will slow down as it goes to the left, giving you more time. As you get faster, you can stay close to the right and increase your WPM. Thanks for playing!`,
     textPosition : 0,
-    wordIndex: 0,
-    letterIndex: 0,
     successfulWords: 0,
     time: Date.now(),
     mistakes: 0,
     totalLetters: 0,
-    lastWordLetterIndex: 0,
-    mistakesMap: {},
     gameOver: false,
+    shift: 0
   }
 }
 
@@ -26,7 +22,6 @@ const resetDom = () => {
   document.getElementById('game-text').style.color = 'rgb(255, 123, 71)';
   document.getElementById('successful-words').innerHTML = '0'
   document.getElementById('typing-errors').innerHTML = '0'
-  document.getElementById('game-stats').innerHTML = ''
 }
 
 let state = {gameOver: true};
@@ -37,12 +32,14 @@ const generateGameLetters = () => {
     letterContainer.innerHTML = letter;
     state.gameTextContainer.appendChild(letterContainer);
   }
-  state.gameTextContainer.style.right = state.gameText.length * FONT_WIDTH + "px";
+  state.gameTextContainer.style.right = -state.gameText.length * FONT_WIDTH + "px";
 }
 
 const startGame = () => {
   if(state.gameOver){
+    document.getElementById('endgame-message').style.visibility = 'hidden';
     state = setState();
+    state.shift = -state.gameText.length * FONT_WIDTH;
     resetDom();
     state.wordsArray = wordsArray(state.gameText);
     generateGameLetters();
@@ -52,61 +49,41 @@ const startGame = () => {
   }
 }
 
-const updateWords = () => {
-  const currentWord = state.wordsArray[state.wordIndex]
-  if(state.letterIndex < currentWord.length - 1){
-    Array.from(state.gameTextContainer.children)[state.totalLetters - 1].style.color = "rgb(0,255,0)";
-    state.letterIndex++;
-  } else {
-    //Word finished. Need to remove letters, update textposition, update indices, add on a space to type before new word, 
-    //update score stats, and flash green. A lot going on here
-    const lettersToRemove = Array.from(state.gameTextContainer.children).slice(state.lastWordLetterIndex,state.totalLetters);
-    if(state.wordIndex === state.wordsArray.length - 1){
-      endGame();
-    } else {
-    state.lastWordLetterIndex += state.letterIndex;
-    lettersToRemove.forEach(letter => letter.style.visibility = 'hidden')
-    state.textPosition -= FONT_WIDTH * (state.letterIndex + 1);
-    state.wordIndex ++;
-    state.letterIndex = 0;
-    state.wordsArray[state.wordIndex].unshift(' ');
+const updateWords = (key) => {
+  Array.from(state.gameTextContainer.children)[state.totalLetters - 1].style.color = "rgb(0,255,0)";
+  state.textPosition -= FONT_WIDTH;
+  if(key === ' '){
     state.successfulWords += 1;
     document.getElementById('successful-words').innerHTML = state.successfulWords;
-    document.getElementById('wpm').innerHTML = Math.round(state.successfulWords / ((Date.now() - state.time) / 60000));
-    successFlash();
-    }
+    const lettersToRemove = Array.from(state.gameTextContainer.children).slice(0,state.totalLetters);
+    lettersToRemove.forEach(letter => letter.style.visibility = 'hidden');
+  } 
+  if(state.totalLetters === state.gameText.length){
+    endGame();
   }
 }
 
 const endGame = () => {
   state.gameOver = true;
+  const minutesTaken = (Date.now() - state.time) / 60000;
+  const wpm = Math.round(state.successfulWords / minutesTaken);
+  const endgameMessage = document.getElementById('endgame-message');
+  endgameMessage.innerText = `You typed at ${state.successfulWords} words at a speed of ${wpm} words per minute with ${state.mistakes} errors. Hit start game to play again.`;
+  endgameMessage.style.visibility = 'visible';
 }
 
 const handleKeyPress = event => {
   //Stopping focus changes on firefox apostrophe click
   event.preventDefault();
-  const currentLetter = state.wordsArray[state.wordIndex][state.letterIndex];
+  const currentLetter = state.gameText[state.totalLetters];
   if(event.key === currentLetter){
     state.totalLetters += 1;
-    updateWords();
+    updateWords(event.key);
   }
   else {
     state.mistakes += 1;
-    state.mistakesMap[currentLetter] = state.mistakesMap[currentLetter] ? state.mistakesMap[currentLetter] + 1 : 1; 
     document.getElementById('typing-errors').innerHTML = state.mistakes
   }
-}
-
-const successFlash = () => {
-  const borderArray = Array.from(document.getElementsByClassName('successFlash'));
-  borderArray.forEach((el) => {
-    el.style.animation = 'successFlash .3s'
-  });
-  setTimeout(() => {
-    borderArray.forEach(el => {
-      el.style.animation = ''
-    })
-  }, 300);
 }
 
 const moveText = () => {
@@ -120,34 +97,20 @@ const moveText = () => {
   }
   const shiftAmount = BASE_SPEED * speedMutliplier(state.textPosition);
   state.textPosition += shiftAmount;
-  const rightShift = state.gameTextContainer.style.right;
-  const rightShiftNumeric = Number(rightShift.slice(0, rightShift.length - 2));
-  state.gameTextContainer.style.right = (rightShiftNumeric + shiftAmount) + "px";
+  state.shift += shiftAmount;
+  state.gameTextContainer.style.right = state.shift + "px";
   requestAnimationFrame(moveText)
 }
 
-const printGameStats = () => {
-  const container = document.getElementById('game-stats');
-  container.append(document.createElement('h2').innerHTML = 'Missed Letter Stats')
-  const stats = Object.entries(state.mistakesMap).sort((a,b) => {
-    return b[1] - a[1];
-  })
-  for (stat of stats){
-    const letterStatEl = document.createElement('li')
-    letterStatEl.classList += 'game-stat'
-    letterStatEl.innerHTML = `${stat[0]} : ${stat[1]}`
-    container.append(letterStatEl)
-  }
-}
-
 const openGame = () => {
-  const open = document.getElementById('type-game').style.height === '300px'
+  const open = document.getElementById('type-game').style.height === '330px'
   if(open){
     document.getElementById('type-game').style.height = "0px";
     endGame();
+    document.getElementById('endgame-message').style.visibility = 'hidden'
     resetDom();
   } else {
-    document.getElementById('type-game').style.height = "300px";
+    document.getElementById('type-game').style.height = "330px";
   }
 }
 
@@ -160,6 +123,9 @@ window.onload = () => {
     <h2 class="game-title">Typeracer </h2>
     <button id="start" onclick="startGame()">Start Game</button>
   </div>
+    <p class="typegame-text">
+      Type the words (with spaces) as they scroll by. The closer you can keep to the right side, the faster the words will scroll and the better words per minute you can get. 
+    </p>
     <div id="game-container">
       <div id="game-text"></div>
     </div>
@@ -167,9 +133,7 @@ window.onload = () => {
       <div>Successful Words: <span id="successful-words">0</span></div>
       <div>Errors: <span id="typing-errors">0</span></div>
     </div>
-    <section>
-      <ul id="game-stats"></ul>
-    </section>
+    <div id="endgame-message"></div>
   </main>
 </section>`;
   document.getElementById('projects').parentNode.insertBefore(typeGame, document.getElementById('projects'));
