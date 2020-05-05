@@ -5,11 +5,15 @@ main{
 }
 
 html, body {
-  background: rgb(0, 85, 78) !important
+  background: rgb(80, 141, 136) !important
 }
 
 .MuiCard-root {
   background: #ECE5F0 !important;
+}
+
+.MuiContainer-root {
+  width: 80vw !important;
 }
 
 .MuiCardContent-root {
@@ -43,7 +47,6 @@ a:hover{
 
 .typegame-text {
   font-size: 1.4em;
-  color: 
 }
 
 #game-container {
@@ -149,5 +152,21 @@ a:hover{
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .MuiContainer-root {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .MuiAvatar-root {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  #game-container, .typegame-text, main {
+    width: 700px;
   }
 }

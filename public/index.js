@@ -1,6 +1,6 @@
 const FONT_WIDTH = 12.18333;
 const BASE_SPEED = 0.35;
-const CONTAINER_WIDTH = 1000;
+let CONTAINER_WIDTH = 1000;
 
 
 const setState = () => {
@@ -115,7 +115,8 @@ const openGame = () => {
 }
 
 window.onload = () => {
-  const typeGame = document.createElement('div')
+  CONTAINER_WIDTH = window.innerWidth < 1250 ? window.innerWidth * 0.8 : CONTAINER_WIDTH;
+  const typeGame = document.createElement('div');
   typeGame.innerHTML = `
   <section id="type-game">
   <main>

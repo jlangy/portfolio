@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     position: "relative",
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: 'space-around'
   },
   square: {
     padding: "20px",
