@@ -51,7 +51,7 @@ export default function ProjectCard(props) {
         <Typography gutterBottom variant="h4" component="h2">
           <span className={classes.projectHeader}>
             {props.project.title}
-            <a href={props.project.github}><i className={classes.projectLink + " fab fa-github"}></i></a>
+            <a href={props.project.link}><i className={classes.projectLink + (props.project.github ? " fab fa-github" : ' fas fa-link')}></i></a>
           </span>
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
