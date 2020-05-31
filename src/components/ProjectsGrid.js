@@ -32,6 +32,14 @@ const projects = [
     tags: ["express", "ejs", "jquery", "node", "javascript", 'postgres', 'sass'],
   },
   {
+    title: "Cambio",
+    content: "A card game for 2-4 players. Built with react, redux and websockets.",
+    github: false,
+    link: "https://warm-journey-82598.herokuapp.com/",
+    pictures: ["url(cambio1.png)", "url(cambio2.png)","url(cambio3.png)"],
+    tags: ["express", "ejs", "jquery", "node", "javascript", 'postgres', 'sass'],
+  },
+  {
     title: "Headbandz",
     content: "A group chat application built with socket.io and WebRTC. Allows people to play the classic headbands game, where they can pass each other famous names to guess.",
     github: false,
