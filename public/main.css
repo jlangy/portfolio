@@ -5,19 +5,22 @@ main{
 }
 
 html, body {
-  background: rgb(80, 141, 136) !important
+  /* background: rgb(80, 141, 136) !important */
 }
 
 .MuiCard-root {
-  background: #ECE5F0 !important;
+  /* background: #ECE5F0 !important; */
+
 }
 
 .MuiContainer-root {
-  width: 80vw !important;
+  /* width: 80vw !important; */
+  
 }
 
 .MuiCardContent-root {
-  background-color: #f5edf0;
+  /* background-color: #f5edf0; */
+  /* background-color: orange; */
 }
 
 #endgame-message {

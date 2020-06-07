@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     margin: 'auto',
+    marginBottom: 50,
   },
   projectHeader: {
     display: 'flex',

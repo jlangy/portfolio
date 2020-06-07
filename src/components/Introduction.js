@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   introText: {
     fontSize: '2em',
     textAlign: 'center',
-    paddingRight: '20px'
+    padding: '20px 60px'
   },
   gameDropdown: {
     cursor: 'pointer',

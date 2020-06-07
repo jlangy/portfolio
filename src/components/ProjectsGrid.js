@@ -36,7 +36,7 @@ const projects = [
     content: "A card game for 2-4 players. Built with react, redux and websockets.",
     github: false,
     link: "https://warm-journey-82598.herokuapp.com/",
-    pictures: ["url(cambio1.png)", "url(cambio2.png)","url(cambio3.png)"],
+    pictures: ["url(cambio2.png)","url(cambio3.png)", "url(cambio1.png)"],
     tags: ["express", "ejs", "jquery", "node", "javascript", 'postgres', 'sass'],
   },
   {

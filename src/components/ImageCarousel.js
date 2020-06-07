@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     backgroundRepeat: "no-repeat",
     display: "inline-block",
     backgroundPosition: "center top",
-    backgroundColor: "#f5edf0",
+    // backgroundColor: "#f5edf0",
     maxHeight: 300,
     maxWidth: 345
   },
