@@ -137,6 +137,7 @@ window.onload = () => {
     <div id="endgame-message"></div>
   </main>
 </section>`;
-  document.getElementById('projects').parentNode.insertBefore(typeGame, document.getElementById('projects'));
-  document.getElementById('game-dropdown-btn').addEventListener('click', openGame);
+  
+  document.getElementById('projects') && document.getElementById('projects').parentNode.insertBefore(typeGame, document.getElementById('projects'));
+  document.getElementById('game-dropdown-btn') && document.getElementById('game-dropdown-btn').addEventListener('click', openGame);
 }
