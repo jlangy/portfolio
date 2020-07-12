@@ -58,7 +58,7 @@ function Introduction(props) {
     <Container className={classes.margin}>
       <Card className={classes.flexCol}>
         <div className={classes.flexRow}>
-          <Avatar className={classes.avatar} src="./me.jpeg" alt="Jon Langlois" />
+          <Avatar className={classes.avatar} src="./me.webp" alt="Jon Langlois" />
           <h2 className={classes.introductionTitle}>Hello, I'm Jon</h2>
         </div>
         <hr className={classes.hr}></hr>

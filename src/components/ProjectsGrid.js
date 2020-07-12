@@ -28,7 +28,7 @@ const projects = [
     content: "A map building application using the google maps API. Allows users to create maps with pinned locations, descriptions and images of locations anywhere.",
     github: true,
     link: "https://github.com/jlangy/mapper",
-    pictures: ["url(Mapper1.png)", "url(Mapper2.png)","url(Mapper3.png)"],
+    pictures: ["url(Mapper1.webp)", "url(Mapper2.webp)","url(Mapper3.webp)"],
     tags: ["express", "ejs", "jquery", "node", "javascript", 'postgres', 'sass'],
   },
   {
@@ -36,7 +36,7 @@ const projects = [
     content: "A card game for 2-4 players. Built with react, redux and websockets.",
     github: false,
     link: "https://warm-journey-82598.herokuapp.com/",
-    pictures: ["url(cambio2.png)","url(cambio3.png)", "url(cambio1.png)"],
+    pictures: ["url(cambio2.webp)","url(cambio3.webp)", "url(cambio1.webp)"],
     tags: ["express", "ejs", "jquery", "node", "javascript", 'postgres', 'sass'],
   },
   {
@@ -44,7 +44,7 @@ const projects = [
     content: "A group chat application built with socket.io and WebRTC. Allows people to play the classic headbands game, where they can pass each other famous names to guess.",
     github: false,
     link: "https://peaceful-beach-72908.herokuapp.com",
-    pictures: ["url(Headbandz1.png)", "url(Headbandz2.png)","url(Headbandz3.png)"],
+    pictures: ["url(Headbandz1.webp)", "url(Headbandz2.webp)","url(Headbandz3.webp)"],
     tags: ["express", "node", "javascript", 'sass', 'react', 'redux'],
   },
   {
@@ -52,7 +52,7 @@ const projects = [
     content: "A scheduling app for booking appointments. Built with websockets for automatic updates across connected users.",
     github: true,
     link: "https://github.com/jlangy/scheduler",
-    pictures: ["url(scheduler1.png)", "url(scheduler2.png)", "url(scheduler3.png)"],
+    pictures: ["url(scheduler1.webp)", "url(scheduler2.webp)", "url(scheduler3.webp)"],
     tags: ["react", "node", "javascript"],
   },
   {
@@ -60,7 +60,7 @@ const projects = [
     content: "A stock trading game app to buy and sell stocks and cryptocurrencies with fake money and compete to make the most.",
     github: true,
     link: "https://github.com/bryce-mcmath/traderu",
-    pictures: ["url(traderu1.png)", "url(traderu2.png)", "url(traderu3.png)"],
+    pictures: ["url(traderu1.webp)", "url(traderu2.webp)", "url(traderu3.webp)"],
     tags: ["vue", "express", "node", 'postgres', 'sass'],
   },
   {
@@ -68,7 +68,7 @@ const projects = [
     content: "A product sales platform to browse and buy different products. Includes administrator dashboard",
     github: true,
     link: "https://github.com/jlangy/jungle",
-    pictures: ["url(jungle1.png)", "url(jungle2.png)", "url(jungle3.png)"],
+    pictures: ["url(jungle1.webp)", "url(jungle2.webp)", "url(jungle3.webp)"],
     tags: ["ruby", "rails"],
   },
   // {
@@ -83,7 +83,7 @@ const projects = [
     content: "An online version of the classic battlehip game. Options to play against an AI or human opponent",
     github: true,
     link: "https://github.com/jlangy/battleship",
-    pictures: ["url(battleship1.png)", "url(battleship2.png)", "url(battleship3.png)"],
+    pictures: ["url(battleship1.webp)", "url(battleship2.webp)", "url(battleship3.webp)"],
     tags: ["sass", "jquery", 'javascript', 'postgres'],
   },
 ];
