@@ -4,7 +4,9 @@ const path = require('path')
 
 const app = express();
 
-app.use(redirectToHttps([/localhost:(\d{4})/]));
+app.use(redirectToHttps());
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 8001, () => {
+  console.log('server running;')
+});
