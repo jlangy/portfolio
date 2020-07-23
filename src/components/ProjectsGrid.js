@@ -24,6 +24,14 @@ const useStyles = makeStyles({
 });
 const projects = [
   {
+    title: "Flower Identifier",
+    content: "Website showing a machine learning algorithm for predicting flower species. Website built with python and flask. Identifier algorithm built with python, pytorch, and torchvision.",
+    github: false,
+    link: "https://flowers-predictor-api-heroku.herokuapp.com/predict",
+    pictures: ["url(flowers1.webp)", "url(flowers2.webp)"],
+    tags: ["python","flask", "pandas", "numpy", "torch", "torchvision"],
+  },
+  {
     title: "Mapper",
     content: "A map building application using the google maps API. Allows users to create maps with pinned locations, descriptions and images of locations anywhere.",
     github: true,
