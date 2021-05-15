@@ -53,5 +53,8 @@
     @include media(">=tablet", "<desktop") {
       width: 100%;
     }
+    img {
+      border-radius: 50%;
+    }
   }
 }

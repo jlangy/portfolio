@@ -14,6 +14,9 @@
 @import "./promotion.scss";
 @import "./footer.scss";
 
+$base-color: #E8DBC5;
+$font-color: #252627;
+
 * {
   font-family: "Montserrat";
 }
@@ -38,6 +41,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: $base-color;
+  color: $font-color;
 }
 
 .primary-btn {
