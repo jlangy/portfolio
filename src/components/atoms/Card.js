@@ -8,7 +8,7 @@ const Card = ({ heading, paragraph, imgUrl, projectLink }) => {
         alt=""
         style={{ objectFit: "cover", maxWidth: "100%", height: '100%' }}
       />
-      <div className="content" style={{ position: "absolute" }}>
+      <div className="content" style={{ position: "absolute", maxWidth: "100%" }}>
         <h1 className="header">{heading}</h1>
         <p className="text">{paragraph}</p>
         <a
