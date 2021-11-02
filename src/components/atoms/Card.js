@@ -4,10 +4,11 @@ const Card = ({ heading, paragraph, imgUrl, projectLink }) => {
   return (
     <div
       className="card"
-      style={{
-        backgroundImage: `url(${imgUrl})`,
-      }}
+      // style={{
+      //   backgroundImage: `url(${imgUrl})`,
+      // }}
     >
+      <img src={imgUrl} alt=""/>
       <div className="content">
         <h1 className="header">{heading}</h1>
         <p className="text">{paragraph}</p>
