@@ -11,9 +11,9 @@ import kubernetesIcon from "./images/kubernetes-logo.svg"
 import linkedinIcon from "./images/linkedin.svg"
 
 // Project Images
-import launchOnlineImage from "./images/launchonline.png"
-import headbandsImage from "./images/headbands.png";
-import flowerIdentifierImage from "./images/flower-identifier.png";
+import launchOnlineImage from "./images/launchonline.jpg"
+import headbandsImage from "./images/headbands.jpg";
+import flowerIdentifierImage from "./images/flower-identifier.jpg";
 import profileImage from "./images/profile.jpeg";
 
 export default {
