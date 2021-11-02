@@ -72,11 +72,7 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    >
-      <link rel="preload" href={launchOnlineImage} as='image' />
-      <link rel="preload" href={headbandsImage} as='image' />
-      <link rel="preload" href={flowerIdentifierImage} as='image' />
-    </Helmet>
+    />
   )
 }
 

@@ -2,13 +2,13 @@ import React from "react"
 
 const Card = ({ heading, paragraph, imgUrl, projectLink }) => {
   return (
-    <div
-      className="card"
-      style={{
-        backgroundImage: `url(${imgUrl})`,
-      }}
-    >
-      <div className="content">
+    <div className="card" style={{ position: "relative" }}>
+      <img
+        src={imgUrl}
+        alt=""
+        style={{ objectFit: "cover", maxWidth: "100%", height: '100%' }}
+      />
+      <div className="content" style={{ position: "absolute" }}>
         <h1 className="header">{heading}</h1>
         <p className="text">{paragraph}</p>
         <a
