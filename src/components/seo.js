@@ -9,6 +9,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import launchOnlineImage from "../images/launchonline.jpg"
+import headbandsImage from "../images/headbands.jpg";
+import flowerIdentifierImage from "../images/flower-identifier.jpg";
+
 function SEO({ description, lang, meta, title }) {
   const { site } = useStaticQuery(
     graphql`
@@ -68,7 +72,11 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <link rel="preload" href={launchOnlineImage} as='image' />
+      <link rel="preload" href={headbandsImage} as='image' />
+      <link rel="preload" href={flowerIdentifierImage} as='image' />
+    </Helmet>
   )
 }
 
